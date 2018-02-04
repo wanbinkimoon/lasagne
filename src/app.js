@@ -1,24 +1,14 @@
 import * as d3 from 'd3'
 import WebMidi from 'webmidi'
+import initialState from './store'
 import handlePads from './pad/index'
 import handleKnobs from './knob/index'
-
-// Selecting and appending elements
-// d3.select('#root')
-//   .append('h5')
-//   .append('text')
-//   .text(`D3 version: ${d3.version}`)
-
-// Loading external data
-// d3.csv('/data/sample.csv', (error, dataset) => {
-//   dataset.forEach((data) => {
-//     console.log(data)
-//   })
-// })
 
 const height = window.innerHeight - 72
 const width = window.innerWidth - 72
 const bar = (width / 4) - 9
+
+const store = {...initialState}
 
 let rects = [
   {
@@ -54,19 +44,20 @@ const svg = d3.select('#root').append('svg').attr('height', height).attr('width'
 
 const pad = (e) => {
   d3.selectAll("svg > *").remove();
-
-  console.log(e.data[1])
   const numb = e.data[1]
-  handlePads(numb, svg)
+  return store.state = {
+    ...handlePads(numb, store)
+  }
 }
+
 
 const knob = (e) => {
   d3.selectAll("svg > *").remove();
-  
   const numb = e.data[1]
-  const val = (e.data[2] * height) / 127
+  const val = e.data[2]
+  const { set } = store.state
 
-  handleKnobs(numb, val, rects, height, svg)
+  return handleKnobs(numb, val, set, svg)
 }
 
 WebMidi.enable(function(err) {
