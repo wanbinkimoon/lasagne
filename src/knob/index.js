@@ -1,3 +1,5 @@
+import SetOne from './SetOne/index'
+
 const draw = (rects, svg) => {
   for(let rect of rects){
     svg.append('rect')
