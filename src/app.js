@@ -1,5 +1,7 @@
 import * as d3 from 'd3'
 import WebMidi from 'webmidi'
+import handlePads from './pad/index'
+import handleKnobs from './knob/index'
 
 // Selecting and appending elements
 // d3.select('#root')
@@ -23,25 +25,25 @@ let rects = [
     x: (bar / 4), 
     y: height, 
     width: (bar / 2), 
-    height: height
+    height: height - 2
   },
   {
     x: bar + 12 + (bar / 4), 
     y: height, 
     width: (bar / 2), 
-    height: height
+    height: height - 2
   },
   {
     x: ((bar + 12) * 2) + (bar / 4), 
     y: height,  
     width: (bar / 2), 
-    height: height
+    height: height - 2
   },
   {
     x:  ((bar + 12) * 3) + (bar / 4),
     y: height, 
     width: (bar / 2), 
-    height: height
+    height: height - 2
   },
 ]
 
@@ -50,26 +52,21 @@ let rects = [
 
 const svg = d3.select('#root').append('svg').attr('height', height).attr('width', width)
 
-const draw = (rects) => {
+const pad = (e) => {
   d3.selectAll("svg > *").remove();
-  for(let rect of rects){
-    svg.append('rect')
-      .attr('x', rect.x)
-      .attr('y', rect.y)
-      .attr('width', rect.width)
-      .attr('height', rect.height)
-  }
+
+  console.log(e.data[1])
+  const numb = e.data[1]
+  handlePads(numb, svg)
 }
 
-const pad = (e) => console.log(e)
 const knob = (e) => {
+  d3.selectAll("svg > *").remove();
+  
   const numb = e.data[1]
   const val = (e.data[2] * height) / 127
 
-  console.log(height, val)
-
-  rects[numb - 1].y = val
-  return draw(rects)
+  handleKnobs(numb, val, rects, height, svg)
 }
 
 WebMidi.enable(function(err) {

@@ -7,18 +7,31 @@ body {
 }
 
 svg {
+
   & > rect {
     &:nth-of-type(1) {
-      fill: gold;
+      // fill: gold;
+      stroke: white;
+      stroke-width: 2px;
     }
     &:nth-of-type(2) {
-      fill: orange;
+      // fill: orange;
+      stroke: white;
+      stroke-width: 2px;
     }
     &:nth-of-type(3) {
-      fill: tomato;
+      // fill: tomato;
+      stroke: white;
+      stroke-width: 2px;
     }
     &:nth-of-type(4) {
-      fill: orangered;
+      // fill: orangered;
+      stroke: white;
+      stroke-width: 2px;
     }
+  }
+
+  &.test{
+    background: orangered;
   }
 }
