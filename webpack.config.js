@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -7,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const paths = {
   src: path.join(__dirname, 'src'),
   dist: path.join(__dirname, 'dist'),
-  data: path.join(__dirname, 'data')
+  // data: path.join(__dirname, 'data')
 }
 
 module.exports = {
@@ -42,16 +43,19 @@ module.exports = {
     port: '4800',
     stats: 'errors-only',
   },
+
   plugins: [
     new ExtractTextPlugin({
       filename: 'main.bundle.css',
       allChunks: true,
     }),
-    new CopyWebpackPlugin([
-      {
-        from: paths.data,
-        to: paths.dist + '/data'
-      }
-    ])
+    // new CopyWebpackPlugin([
+    //   {
+    //     from: paths.data,
+    //     to: paths.dist + '/data'
+    //   }
+    // ]), 
+    new DashboardPlugin(), 
   ],
+
 }

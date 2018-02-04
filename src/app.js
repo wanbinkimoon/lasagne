@@ -14,37 +14,41 @@ import WebMidi from 'webmidi'
 //   })
 // })
 
+const height = window.innerHeight - 72
+const width = window.innerWidth - 72
+const bar = (width / 4) - 9
+
 let rects = [
   {
-    x: 40, 
-    y: 0, 
-    width: 40, 
-    height: 300
+    x: (bar / 4), 
+    y: height, 
+    width: (bar / 2), 
+    height: height
   },
   {
-    x: 100, 
-    y: 0, 
-    width: 40, 
-    height: 20
+    x: bar + 12 + (bar / 4), 
+    y: height, 
+    width: (bar / 2), 
+    height: height
   },
   {
-    x: 160, 
-    y: 0, 
-    width: 40, 
-    height: 300
+    x: ((bar + 12) * 2) + (bar / 4), 
+    y: height,  
+    width: (bar / 2), 
+    height: height
   },
   {
-    x: 220, 
-    y: 0, 
-    width: 40, 
-    height: 300
+    x:  ((bar + 12) * 3) + (bar / 4),
+    y: height, 
+    width: (bar / 2), 
+    height: height
   },
 ]
 
 
 
 
-const svg = d3.select('#root').append('svg').attr('height', 300)
+const svg = d3.select('#root').append('svg').attr('height', height).attr('width', width)
 
 const draw = (rects) => {
   d3.selectAll("svg > *").remove();
@@ -60,8 +64,11 @@ const draw = (rects) => {
 const pad = (e) => console.log(e)
 const knob = (e) => {
   const numb = e.data[1]
-  const val = e.data[2]
-  rects[numb].height = val
+  const val = (e.data[2] * height) / 127
+
+  console.log(height, val)
+
+  rects[numb - 1].y = val
   return draw(rects)
 }
 
