@@ -1,25 +1,10 @@
 import SetOne from './SetOne/index'
 
-const draw = (rects, svg) => {
-  for(let rect of rects){
-    svg.append('rect')
-      .attr('x', rect.x)
-      .attr('y', rect.y)
-      .attr('width', rect.width)
-      .attr('height', rect.height)
-  }
-}
-
 export default function(numb, val, set, svg){
-  // rects[numb - 1].y = val
-  // rects[numb - 1].height = height - val
-  // return draw(rects, svg)
-  // console.log(numb, val, set, svg)
-
   const setSwitcher = (set) => {
     switch(set){
       case 1:
-        return console.log(numb, val, set)
+        return SetOne(numb, val, svg)
         break
       case 2:
         return console.log(numb, val, set)
