@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --hot --inline --progress",
-    "start:dash": "webpack-dashboard ./node_modules/.bin/webpack-dev-server --hot --inline --progress",
+    "start:dash":
+      "webpack-dashboard ./node_modules/.bin/webpack-dev-server --hot --inline --progress",
     "build": "webpack -p --config webpack.config.js --hide-modules"
   },
   "devDependencies": {
